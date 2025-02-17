@@ -1,4 +1,4 @@
-package org.hetic.adapters;
+package org.hetic.adapters.repository;
 
 import org.hetic.domain.repository.ChunkRepository;
 
