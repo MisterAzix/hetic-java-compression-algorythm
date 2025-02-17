@@ -1,6 +1,7 @@
 package org.hetic.domain;
 
-import org.hetic.adapters.InMemoryChunkRepository;
+import org.hetic.adapters.repository.InMemoryChunkRepository;
+import org.hetic.adapters.strategy.RabinChunkingStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +19,8 @@ class ChunkingServiceTest {
     @BeforeEach
     void setUp() {
         inMemoryChunkRepository = new InMemoryChunkRepository();
-        chunkingService = new ChunkingService(inMemoryChunkRepository);
+        RabinChunkingStrategy rabinChunkingStrategy = new RabinChunkingStrategy();
+        chunkingService = new ChunkingService(inMemoryChunkRepository, rabinChunkingStrategy);
     }
 
     @Test
