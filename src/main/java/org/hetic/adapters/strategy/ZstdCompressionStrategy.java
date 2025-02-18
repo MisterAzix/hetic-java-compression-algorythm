@@ -1,12 +1,12 @@
 package org.hetic.adapters.strategy;
 
-import org.hetic.domain.repository.CompressionRepository;
+import org.hetic.domain.strategy.CompressionStrategy;
 import org.hetic.domain.model.CompressionMetrics;
 import com.github.luben.zstd.Zstd;
 
 
 
-public class ZstdCompressionStrategy implements CompressionRepository {
+public class ZstdCompressionStrategy implements CompressionStrategy {
     private long totalOriginalSize = 0;
     private long totalCompressedSize = 0;
 
@@ -18,14 +18,14 @@ public class ZstdCompressionStrategy implements CompressionRepository {
         return compressed;
     }
 
-    @Override
-    public byte[] decompress(byte[] compressedData) {
-        return Zstd.decompress(compressedData, 
-            (int) Zstd.decompressedSize(compressedData));
-    }
+    // @Override
+    // public byte[] decompress(byte[] compressedData) {
+    //     return Zstd.decompress(compressedData, 
+    //         (int) Zstd.decompressedSize(compressedData));
+    // }
 
-    @Override
-    public CompressionMetrics getMetrics() {
-        return new CompressionMetrics(totalOriginalSize, totalCompressedSize);
-    }
+    // @Override
+    // public CompressionMetrics getMetrics() {
+    //     return new CompressionMetrics(totalOriginalSize, totalCompressedSize);
+    // }
 }

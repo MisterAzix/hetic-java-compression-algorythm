@@ -1,8 +1,8 @@
 package org.hetic;
 
-import org.hetic.adapters.repository.ChunkCompressionRepository;
-import org.hetic.adapters.repository.WholeFileCompressionRepository;
+import org.hetic.adapters.strategy.ZstdCompressionStrategy;
 import org.hetic.adapters.strategy.RabinChunkingStrategy;
+import org.hetic.adapters.repository.InFileCompressionRepository;
 import org.hetic.domain.CompressionService;
 
 import java.io.File;
@@ -16,17 +16,19 @@ public class Main {
         
         File file = new File("src/main/resources/file.txt");
 
-        WholeFileCompressionRepository wholeFileRepo = new WholeFileCompressionRepository(outputPath);
-        ChunkCompressionRepository chunkRepo = new ChunkCompressionRepository(outputPath);
+        
         RabinChunkingStrategy chunkingStrategy = new RabinChunkingStrategy();
+        ZstdCompressionStrategy compressionStrategy = new ZstdCompressionStrategy();
+        InFileCompressionRepository compressionRepository = new InFileCompressionRepository(outputPath);
+
 
         CompressionService compressionService = new CompressionService(
-            wholeFileRepo,
-            chunkRepo,
+            compressionStrategy,
+            compressionRepository,
             chunkingStrategy
         );
 
-        compressionService.processFile(file);
-        System.out.println(compressionService.getCompressionReport());
-    }
-}
+        // compressionService.processChunks(file);
+        compressionService.processWholeFile(file);
+        // System.out.println(compressionService.getCompressionReport());
+    }}
